@@ -6,6 +6,27 @@ async function handle_request(req, callback) {
     try {
         filter = prepareSearchCriteria(req)
         let sites = await Site.find(filter);
+        let currentDate = new Date();
+        let currentDateString = currentDate.toISOString();
+        sites.map((site)=>{
+            let total = site.stations.length;
+            let available = total;
+            site.stations.map(station => {
+                let bookingSolts= station.bookingSolts;
+                for(let i=0; i< bookingSolts.length;i++){
+                    let start = bookingSolts[i].start;
+                    let end =  bookingSolts[i].end;
+                    if(currentDateString.localeCompare(start) >= 0 && currentDateString.localeCompare(end)<=0){
+                        available--;
+                        break;
+                    }
+                }
+            });
+            site.chargers={
+                available,total
+            };
+
+        })
         resp=prepareSuccess({sites})
     } catch (error) {
         console.log(error);
