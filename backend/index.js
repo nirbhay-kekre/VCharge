@@ -8,6 +8,8 @@ var morgan = require('morgan');
 let passport = require('passport');
 let login = require("./routes/login");
 let signup = require("./routes/signUp");
+let populate = require("./routes/populate");
+let getSites = require("./routes/getSites");
 
 const config = require('./authProxy/config/settings');
 var { mongoose } = require('./connection/mongoose');
@@ -51,7 +53,9 @@ require('./authProxy/config/passport')(passport);
 
 app.use("/login", login);
 app.use("/signup", signup);
+//app.use("/populateDB", populate );
 app.use("/", requireAuth);
+app.use("/getSites", getSites);
 
 
 
