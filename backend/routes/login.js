@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
             } else {
                 if(result.code === 200){
                     var token = jwt.sign(result.data, config.secret, {
-                        expiresIn: 10080 // in seconds
+                       // expiresIn: 10080 // in seconds
                     });
                     result.data.token = 'JWT ' + token;
                 }
