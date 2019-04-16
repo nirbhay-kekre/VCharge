@@ -1,4 +1,4 @@
-const { prepareAuthenticationFailure, prepareInternalServerError, prepareSuccess } = require('./responses')
+const { prepareForbiddenFailure, prepareInternalServerError, prepareSuccess } = require('./responses')
 let { User } = require('./../models/user');
 const bcrypt = require("bcrypt");
 
@@ -18,7 +18,7 @@ async function handle_request(req, callback) {
                 name: user.name
             });
         } else {
-            resp = prepareAuthenticationFailure();
+            resp = prepareForbiddenFailure();
         }
     } catch (error) {
         console.log(error);

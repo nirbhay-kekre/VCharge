@@ -25,9 +25,9 @@ const prepareNoContent = (data ={}) =>{
     console.log(responseData);
     return responseData;
 }
-const prepareAuthenticationFailure = (data = {}) => {
+const prepareForbiddenFailure = (data = {}) => {
     const responseData = {
-        code: 401,
+        code: 403,
         data: {
             success: false,
             message: "The username or password you entered is incorrect.",
@@ -41,7 +41,7 @@ const prepareAuthenticationFailure = (data = {}) => {
 
 const prepareAuthorizationFailure = (data = {}) => {
     const responseData = {
-        code: 403,
+        code: 401,
         data: {
             success: false,
             message: "User is not authorized to perform this action",
@@ -82,5 +82,5 @@ const prepareResourceConflictFailure = (resp, data = {}) => {
 }
 
 module.exports = { prepareSuccess, prepareNoContent,
-     prepareAuthenticationFailure, prepareAuthorizationFailure,
+    prepareForbiddenFailure, prepareAuthorizationFailure,
       prepareInternalServerError, prepareResourceConflictFailure };

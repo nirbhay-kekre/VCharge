@@ -1,4 +1,4 @@
-const { prepareAuthenticationFailure, prepareInternalServerError, prepareSuccess } = require('./responses')
+const { prepareForbiddenFailure, prepareInternalServerError, prepareSuccess } = require('./responses')
 const { User } = require('./../models/user');
 
 async function handle_request(req, callback) {
@@ -14,7 +14,7 @@ async function handle_request(req, callback) {
             });
         }
         else {
-            resp = prepareAuthenticationFailure();
+            resp = prepareForbiddenFailure();
         }
     } catch (error) {
         console.log(error);

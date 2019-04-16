@@ -26,9 +26,9 @@ const sendNoContent = (resp, data = {}) => {
     resp.end(JSON.stringify(responseData));
 }
 
-const sendAuthenticationFailure = (resp, data = {}) => {
+const sendForbiddenFailure = (resp, data = {}) => {
     console.log("sending Authentication Failure with code 401", data);
-    resp.writeHead(401, {
+    resp.writeHead(403, {
         'Content-Type': 'application/json'
     });
     resp.end(JSON.stringify({
@@ -40,7 +40,7 @@ const sendAuthenticationFailure = (resp, data = {}) => {
 
 const sendAuthorizationFailure = (resp, data = {}) => {
     console.log("sending Authorization Failure with code 403", data);
-    resp.writeHead(403, {
+    resp.writeHead(401, {
         'Content-Type': 'application/json'
     });
     resp.end(JSON.stringify({
@@ -98,10 +98,10 @@ const responseHandler = (resp, result = {}) => {
             sendBadRequest(resp);
             break;
         case 401:
-            sendAuthenticationFailure(resp);
+            sendAuthorizationFailure(resp,result.data);
             break;
         case 403:
-            sendAuthorizationFailure(resp);
+            sendForbiddenFailure(resp, result.data);
             break;
         case 500:
             sendInternalServerError(resp);
@@ -116,4 +116,4 @@ const responseHandler = (resp, result = {}) => {
     }
 }
 
-module.exports = { sendSuccess, sendAuthenticationFailure, sendAuthorizationFailure, sendInternalServerError, sendBadRequest, responseHandler };
+module.exports = { sendSuccess, sendForbiddenFailure, sendAuthorizationFailure, sendInternalServerError, sendBadRequest, responseHandler };
