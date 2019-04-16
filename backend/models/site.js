@@ -10,10 +10,6 @@ const mongoose = require('mongoose'),
     city: String,
     state: String,
     zip_code: Number,
-    chargers:{
-        available: Number,
-        total: Number
-    },
     coordinates: [ Number ],
     stations: [
       {
@@ -30,7 +26,7 @@ const mongoose = require('mongoose'),
         bookingSolts:[{
           start: String,
           end: String,
-          email: String
+          username: String
         }]
       }
     ]

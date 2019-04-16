@@ -10,6 +10,8 @@ let login = require("./routes/login");
 let signup = require("./routes/signUp");
 let populate = require("./routes/populate");
 let getSites = require("./routes/getSites");
+let bookStation = require("./routes/bookStation")
+let history = require("./routes/histroy");
 
 const config = require('./authProxy/config/settings');
 var { mongoose } = require('./connection/mongoose');
@@ -53,9 +55,11 @@ require('./authProxy/config/passport')(passport);
 
 app.use("/login", login);
 app.use("/signup", signup);
-//app.use("/populateDB", populate );
+app.use("/populateDB", populate );
 app.use("/", requireAuth);
 app.use("/getSites", getSites);
+app.use("/bookStation", bookStation);
+app.use("/history", history);
 
 
 

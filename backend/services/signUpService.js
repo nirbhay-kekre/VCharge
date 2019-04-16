@@ -1,5 +1,6 @@
 const { prepareInternalServerError, prepareSuccess, prepareResourceConflictFailure } = require('./responses')
 const { User } = require('./../models/user');
+const {bookingHistory} = require("./../models/bookingHistory")
 const bcrypt = require("bcrypt");
 
 async function handle_request(req, callback) {
@@ -16,6 +17,10 @@ async function handle_request(req, callback) {
         } else {
             const cypher = await bcrypt.hash(password, 10);
             let user = await User.create({ username, password: cypher, name });
+            await bookingHistory.create({
+                username,
+                history:[]
+            })
             console.log("created new user", user);
             resp = prepareSuccess({ username: user.username, firstname: user.firstname, lastname: user.lastname });
         }

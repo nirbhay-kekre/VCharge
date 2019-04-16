@@ -20,14 +20,8 @@ async function handle_request(req, callback) {
                 city: s.city,
                 state: s.state,
                 zip_code: s.zip_code,
-                chargers:{
-                    available: s.chargers[0].total,
-                    total: s.chargers[0].total
-                },
                 coordinates: s.location.coordinates,
-                stations: [
-                
-                ]
+                stations: []
             }
             outputSite = output.stations;
             for(let j=0; j< s.stations.length; j++){

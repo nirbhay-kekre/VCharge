@@ -5,29 +5,31 @@ async function handle_request(req, callback) {
     let resp = {}
     try {
         filter = prepareSearchCriteria(req)
-        let sites = await Site.find(filter);
+        let sites = await Site.find(filter, { _id: 0, __v: 0 });
         let currentDate = new Date();
         let currentDateString = currentDate.toISOString();
-        sites.map((site)=>{
+        sites = JSON.stringify(sites);
+        sites = JSON.parse(sites);
+        sites.map((site) => {
             let total = site.stations.length;
             let available = total;
             site.stations.map(station => {
-                let bookingSolts= station.bookingSolts;
-                for(let i=0; i< bookingSolts.length;i++){
+                let bookingSolts = station.bookingSolts;
+                for (let i = 0; i < bookingSolts.length; i++) {
                     let start = bookingSolts[i].start;
-                    let end =  bookingSolts[i].end;
-                    if(currentDateString.localeCompare(start) >= 0 && currentDateString.localeCompare(end)<=0){
+                    let end = bookingSolts[i].end;
+                    if (currentDateString.localeCompare(start) >= 0 && currentDateString.localeCompare(end) <= 0) {
                         available--;
                         break;
                     }
                 }
             });
-            site.chargers={
-                available,total
+            site.chargers = {
+                available, total
             };
 
         })
-        resp=prepareSuccess({sites})
+        resp = prepareSuccess({ sites })
     } catch (error) {
         console.log(error);
         resp = prepareInternalServerError()
@@ -35,11 +37,11 @@ async function handle_request(req, callback) {
     callback(null, resp);
 }
 
-function prepareSearchCriteria(req){
+function prepareSearchCriteria(req) {
     filter = {}
-    const {name} = req;
-    if(name){
-        filter.name= { $regex: ".*" + name + ".*" }
+    const { name } = req;
+    if (name) {
+        filter.name = { $regex: ".*" + name + ".*" }
     }
     return filter;
 }
