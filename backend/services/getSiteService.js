@@ -41,7 +41,7 @@ function prepareSearchCriteria(req) {
     filter = {}
     const { name } = req;
     if (name) {
-        filter.name = { $regex: ".*" + name + ".*" }
+        filter.name = { $regex: ".*" + name + ".*", '$options' : 'i' }
     }
     return filter;
 }
