@@ -25,7 +25,6 @@ function validateBookInput(req) {
     req.checkBody("start", "start is required.").notEmpty();
     req.checkBody("end", "end is required.").notEmpty();
     req.checkBody("site_id", "site_id is required.").notEmpty();
-    req.checkBody("station_id", "station_id is required.").notEmpty();
     return req.validationErrors();
 }
 module.exports = router;
