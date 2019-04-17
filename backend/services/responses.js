@@ -7,8 +7,6 @@ const prepareSuccess = (data = {}) => {
             ...data
         }
     };
-    console.log("preparing success response with code 200");
-    console.log(responseData);
     return responseData;
 }
 
@@ -21,8 +19,6 @@ const prepareNoContent = (data ={}) =>{
             ...data
         }
     };
-    console.log("preparing No content response with code 204");
-    console.log(responseData);
     return responseData;
 }
 const prepareForbiddenFailure = (data = {}) => {
@@ -34,8 +30,6 @@ const prepareForbiddenFailure = (data = {}) => {
             ...data
         }
     };
-    console.log("preparing Authentication Failure response with code 401");
-    console.log(responseData);
     return responseData;
 }
 
@@ -48,8 +42,6 @@ const prepareAuthorizationFailure = (data = {}) => {
             ...data
         }
     };
-    console.log("preparing Authorization Failure response with code 403");
-    console.log(responseData);
     return responseData;
 }
 
@@ -62,8 +54,6 @@ const prepareInternalServerError = (resp, data = {}) => {
             ...data
         }
     };
-    console.log("preparing internal server error response with code 500");
-    console.log(responseData);
     return responseData;
 }
 
@@ -76,8 +66,6 @@ const prepareResourceConflictFailure = (resp, data = {}) => {
             ...data
         }
     };
-    console.log("preparing resource conflict error response with code 409");
-    console.log(responseData);
     return responseData;
 }
 

@@ -4,8 +4,6 @@ const sendSuccess = (resp, data = {}) => {
         message: "Successful",
         ...data
     };
-    console.log("sending success response with code 200");
-    console.log(responseData);
     resp.writeHead(200, {
         'Content-Type': 'application/json'
     });
@@ -18,8 +16,6 @@ const sendNoContent = (resp, data = {}) => {
         message: "No Content",
         ...data
     };
-    console.log("sending No Content response with code 204");
-    console.log(responseData);
     resp.writeHead(204, {
         'Content-Type': 'application/json'
     });
@@ -27,7 +23,6 @@ const sendNoContent = (resp, data = {}) => {
 }
 
 const sendForbiddenFailure = (resp, data = {}) => {
-    console.log("sending Authentication Failure with code 401", data);
     resp.writeHead(403, {
         'Content-Type': 'application/json'
     });
@@ -39,7 +34,6 @@ const sendForbiddenFailure = (resp, data = {}) => {
 }
 
 const sendAuthorizationFailure = (resp, data = {}) => {
-    console.log("sending Authorization Failure with code 403", data);
     resp.writeHead(401, {
         'Content-Type': 'application/json'
     });
@@ -51,7 +45,6 @@ const sendAuthorizationFailure = (resp, data = {}) => {
 }
 
 const sendInternalServerError = (resp, data = {}) => {
-    console.log("sending Internal server error with code 500", data);
     resp.writeHead(500, {
         'Content-Type': 'application/json'
     });
@@ -63,7 +56,6 @@ const sendInternalServerError = (resp, data = {}) => {
 }
 
 const sendBadRequest = (resp, data = {}) => {
-    console.log("sending Bad Request with error code 400", data);
     resp.writeHead(400, {
         'Content-Type': 'application/json'
     });
@@ -75,7 +67,6 @@ const sendBadRequest = (resp, data = {}) => {
 }
 
 const sendResourceConflictFailure = (resp, data = {}) => {
-    console.log("sending Bad Request with error code 400", data)
     resp.writeHead(409, {
         'Content-Type': 'application/json'
     });

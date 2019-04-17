@@ -7,7 +7,6 @@ const router = express.Router();
 const config = require('./../authProxy/config/settings');
 
 router.post("/", (req, res) => {
-    console.log("Inside Login Route :");
     let errors = validateLoginInput(req);
     if (errors) {
         let msg = errors.map(error => error.msg).reduce((accumulator, currentVal) => accumulator + "\n" + currentVal);
