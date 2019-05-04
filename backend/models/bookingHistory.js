@@ -17,6 +17,7 @@ const bookingHistorySchema = new Schema({
         city: String,
         state: String,
         zip_code: String,
+        amount_paid: Number
     }]
 });
 

@@ -55,7 +55,7 @@ require('./authProxy/config/passport')(passport);
 
 app.use("/login", login);
 app.use("/signup", signup);
-app.use("/populateDB", populate );
+//app.use("/populateDB", populate );
 app.use("/", requireAuth);
 app.use("/getSites", getSites);
 app.use("/bookStation", bookStation);

@@ -8,7 +8,8 @@ async function handle_request(req, callback) {
         username,
         start,
         end,
-        site_id } = req;
+        site_id,
+        amount_paid } = req;
     try {
         site = await Site.findOne({
             id: site_id
@@ -68,7 +69,8 @@ async function handle_request(req, callback) {
                         street_address,
                         city,
                         state,
-                        zip_code
+                        zip_code,
+                        amount_paid
                     }
                     await bookingHistory.findOneAndUpdate({ username },
                         {

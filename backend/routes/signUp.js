@@ -1,6 +1,8 @@
 let express = require("express");
 const signupService =  require("./../services/signUpService");
 const { sendBadRequest, sendInternalServerError, responseHandler } = require('./responses');
+const jwt = require('jsonwebtoken');
+const config = require('./../authProxy/config/settings');
 let router = express.Router();
 
 router.post("/", (req, res) => {
@@ -16,6 +18,12 @@ router.post("/", (req, res) => {
             if (err) {
                 sendInternalServerError(res);
             } else {
+                if(result.code === 200){
+                    var token = jwt.sign(result.data, config.secret, {
+                       // expiresIn: 10080 // in seconds
+                    });
+                    result.data.token = 'JWT ' + token;
+                }
                 responseHandler(res, result);
             }
 
@@ -25,12 +33,11 @@ router.post("/", (req, res) => {
 function validateSignupInput(req) {
     req.checkBody("username", "An Email address is required.").notEmpty();
     req.checkBody("username", "The email you provided is an invalid email format.").isEmail();
-    req.checkBody("password", "A Password is required.").notEmpty();
-    req.checkBody("password", "Your Password must contain at least 1 number and 1 letter. \n Your Password must be between 7 and 32 characters.").matches(/^(?=.*\d)(?=.*[a-zA-Z]).{7,32}$/);
-    req.checkBody("name", "name is required").notEmpty();
-    if (!req.body.role) {
-        req.body.role = "traveler"; //default is traveler account.
+    if(!req.body.isGoogle){
+        req.checkBody("password", "A Password is required.").notEmpty();
+        req.checkBody("password", "Your Password must contain at least 1 number and 1 letter. \n Your Password must be between 7 and 32 characters.").matches(/^(?=.*\d)(?=.*[a-zA-Z]).{7,32}$/);
     }
+    req.checkBody("name", "name is required").notEmpty();
     let errors = req.validationErrors();
     return errors;
 }
